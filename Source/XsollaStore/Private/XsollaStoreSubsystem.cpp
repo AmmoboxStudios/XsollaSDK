@@ -368,7 +368,7 @@ void UXsollaStoreSubsystem::ShortPollingCheckOrder(const FString& AccessToken, c
 	CheckOrder(AccessToken, OrderId, CheckOrderSuccessCallback, ErrorCallback);
 }
 
-void UXsollaStoreSubsystem::CheckOrder(const FString& AuthToken, const int32 OrderId,
+bool UXsollaStoreSubsystem::CheckOrder(const FString& AuthToken, const int32 OrderId,
 	const FOnCheckOrder& SuccessCallback, const FOnError& ErrorCallback)
 {
 	CachedAuthToken = AuthToken;
@@ -381,7 +381,7 @@ void UXsollaStoreSubsystem::CheckOrder(const FString& AuthToken, const int32 Ord
 	TSharedRef<IHttpRequest, ESPMode::ThreadSafe> HttpRequest = CreateHttpRequest(Url, EXsollaHttpRequestVerb::VERB_GET, AuthToken);
 	HttpRequest->OnProcessRequestComplete().BindUObject(this,
 		&UXsollaStoreSubsystem::CheckOrder_HttpRequestComplete, SuccessCallback, ErrorCallback);
-	HttpRequest->ProcessRequest();
+	return HttpRequest->ProcessRequest();
 }
 
 void UXsollaStoreSubsystem::ClearCart(const FString& AuthToken, const FString& CartId,

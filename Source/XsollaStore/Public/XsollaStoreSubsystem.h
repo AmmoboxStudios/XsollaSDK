@@ -217,7 +217,7 @@ public:
 	void ShortPollingCheckOrder(const FString& AccessToken, const int32 OrderId,
 		const FOnStoreSuccessPayment& SuccessCallback, const FOnError& ErrorCallback);
 	
-	void CheckOrder(const FString& AuthToken, const int32 OrderId,
+	bool CheckOrder(const FString& AuthToken, const int32 OrderId,
 		const FOnCheckOrder& SuccessCallback, const FOnError& ErrorCallback);
 
 	/** Clear Cart
